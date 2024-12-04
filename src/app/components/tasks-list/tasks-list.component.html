@@ -1,0 +1,31 @@
+<div>
+    <h2>Tasks</h2>
+    <form [formGroup]="forms">
+        <div formArrayName="tasks">
+            <div>
+                <button type="button" (click)="addNewTask()">+ Add new Task</button>
+            </div>
+
+            @for(task of tasks.controls; track i; let i=$index){
+                <div [formGroupName]="i">
+                  <label for="task-{{ i }}">Alias:</label>
+                  <input id="task-{{ i }}" type="text" formControlName="title">
+                  completed <input type="checkbox" formControlName="completed"> 
+                  <button type="button" (click)="onDelete(i)">supprimer</button>
+                </div>
+            }
+          </div>
+    </form>
+
+    <h2>Completed Task</h2>
+    @if(!completedTasks.length){
+        <p>there is no completed task yet</p>
+    }
+    @else {
+        @for(completedTask of completedTasks; track $index){
+            <div>
+                <h4>Title: {{ completedTask.title }}</h4>
+            </div>
+        }
+    }
+</div>
